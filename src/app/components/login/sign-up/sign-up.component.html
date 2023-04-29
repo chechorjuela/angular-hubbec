@@ -1,0 +1,54 @@
+<div>
+  <div>
+    <div>Registrate!</div>
+  </div>
+  <div>
+    <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+      <div>
+        <div>
+          <label>Nombre</label>
+          <input class="form-control" type="text" formControlName="firstName"/>
+        </div>
+        <div>
+          <label>Apellido</label>
+          <input class="form-control" type="text" formControlName="lastName"/>
+        </div>
+      </div>
+      <div>
+        <label>Email</label>
+        <input class="form-control" type="text" formControlName="email"/>
+      </div>
+      <div>
+        <label>Cumpleanos</label>
+        <input class="form-control" type="text" formControlName="birthDate"/>
+      </div>
+      <div>
+        <div>
+          <label>Tipo Documento</label>
+          <input class="form-control" type="text" formControlName="typeId"/>
+        </div>
+        <div>
+          <label>Documento</label>
+          <input class="form-control" type="text" formControlName="document"/>
+        </div>
+        <div>
+          <label>Fecha Expedicion</label>
+          <input class="form-control" type="text" formControlName="expeditionDate"/>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>contrasena</label>
+          <input class="form-control" type="text" formControlName="password"/>
+        </div>
+        <div>
+          <label>repetir contrasena</label>
+          <input class="form-control" type="text" formControlName="rptPassword"/>
+        </div>
+      </div>
+      <div>
+        <button type="submit" [disabled]="!formRegister.valid">Button</button>
+      </div>
+    </form>
+  </div>
+</div>
