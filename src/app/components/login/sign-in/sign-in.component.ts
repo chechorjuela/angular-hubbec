@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {formatSize} from "@angular-devkit/build-angular/src/webpack/utils/stats";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+import {IAuthService} from "../../../services/auth/auth.service";
+import {finalize} from "rxjs";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +12,14 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
 
-  constructor(private router: Router) { }
+
+  hide = true;
+
+  constructor(
+    private router: Router,
+    private toast: NgToastService,
+    private authService: IAuthService) {
+  }
 
   formSign = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -18,6 +27,16 @@ export class SignInComponent {
   });
 
   onSubmit(): void {
-    this.router.navigate(['/user/dashboard']);
+    this.authService.signIn(this.formSign.value).pipe(
+      finalize(() => {
+
+      })
+    ).subscribe(result => {
+      this.toast.success({detail:'Usario logeado correctamente'});
+      this.router.navigate(['/user']);
+    }, error => {
+
+    })
+    //this.router.navigate(['/user/dashboard']);
   }
 }

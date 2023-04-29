@@ -1,27 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AppComponent} from "../app/app.component";
-import {AuthComponent} from "./auth/auth.component";
-import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: AppComponent,
-    children: [
-      {
-        path: '',
-        component: AuthComponent
-      }
-    ]
-  }
-];
+import {AuthRoutingModule} from "./auth-routing.module";
+import {SignUpComponent} from "./sign-up/sign-up.component";
+import {AuthService, IAuthService} from "../../services/auth/auth.service";
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
-    RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    AuthRoutingModule
+  ],
+  providers:[
+    { provide: IAuthService, useClass: AuthService },
   ]
 })
 export class AuthModule { }
