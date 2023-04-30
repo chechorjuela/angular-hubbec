@@ -3,15 +3,15 @@
   <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" style="width: 100%;">
           <mat-label>Nombre</mat-label>
-          <input matInput formControlName="firstName">
+          <input matInput formControlName="firstname">
         </mat-form-field>
       </div>
       <div class="mb-4">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" style="width: 100%;">
           <mat-label>Apellido</mat-label>
-          <input matInput formControlName="lastName">
+          <input matInput formControlName="lastname">
         </mat-form-field>
       </div>
     </div>
@@ -29,9 +29,8 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Tipo Documento</mat-label>
-        <mat-select>
-          <mat-option value="cc">C.C</mat-option>
-          <mat-option value="T.I">T.I</mat-option>
+        <mat-select formControlName="typeId">
+          <mat-option *ngFor="let typeId of typeIdOptions" [value]="typeId.value">{{typeId.label}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -39,14 +38,14 @@
       <div class="mb-2">
         <mat-form-field appearance="fill" style="width: 100%">
           <mat-label>N. Documento</mat-label>
-          <input matInput formControlName="lastName">
+          <input matInput formControlName="numberId">
         </mat-form-field>
       </div>
       <div class="mb-2">
         <mat-form-field style="width: 100%">
-          <input matInput formControlName="birthDate" [matDatepicker]="picker" placeholder="Cumpleanos">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <input matInput formControlName="expeditionDate" [matDatepicker]="pickerExpedition" placeholder="Fecha de Expedicion">
+          <mat-datepicker-toggle matSuffix [for]="pickerExpedition"></mat-datepicker-toggle>
+          <mat-datepicker #pickerExpedition></mat-datepicker>
         </mat-form-field>
       </div>
 
@@ -54,15 +53,15 @@
     <div>
       <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Celular</mat-label>
-        <input matInput formControlName="lastName">
+        <input matInput formControlName="phoneNumber">
       </mat-form-field>
     </div>
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
         <mat-form-field appearance="fill" style="width: 100%;">
           <mat-label>Ingresa tu contrasena</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                   [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -71,10 +70,10 @@
       <div>
         <mat-form-field appearance="fill" style="width: 100%;">
           <mat-label>Repite tu contrasena</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input matInput formControlName="passwordConfirm" [type]="hideRpt ? 'password' : 'text'">
+          <button mat-icon-button matSuffix type="button" (click)="hideRpt = !hideRpt" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hideRpt">
+            <mat-icon>{{hideRpt ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
       </div>

@@ -10,9 +10,11 @@ export class TokenService {
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
-
-  getToken() {
-    const token = localStorage.getItem('token');
+  saveUser(user: any){
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+  getToken(keyStorage: string) {
+    const token = localStorage.getItem(keyStorage);
     return token;
   }
 

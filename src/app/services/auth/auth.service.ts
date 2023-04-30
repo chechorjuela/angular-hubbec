@@ -47,6 +47,7 @@ export class AuthService implements IAuthService {
       .pipe(
         tap(response => {
           this.tokenService.saveToken(response.token.token);
+          this.tokenService.saveUser(response);
           this.user.next(response)
         }),
       );

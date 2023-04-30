@@ -14,7 +14,18 @@ export class ErrorInterceptorInterceptor implements HttpInterceptor {
     return next.handle(req)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          this.toast.error({detail: 'error', duration: 5000, summary: error.message, type: 'error'});
+          if (error.error.errors !== undefined || error.error.errors .length > 0) {
+            console.info(error.error.errors)
+            error.error.errors.map((e: any) => this.toast.error({
+              detail: e,
+              duration: 5000,
+              summary: '',
+              type: 'error'
+            }))
+
+          } else {
+            this.toast.error({detail: 'error', duration: 5000, summary: error.message, type: 'error'});
+          }
           return throwError(error);
         })
       );

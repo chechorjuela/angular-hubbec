@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Hobbie </h2>
+<div mat-dialog-content>
+  <form [formGroup]="formHobbie">
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="Nombre Hobbie" formControlName="nameHobbie" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onSaveClick()">{{true ? 'Actualizar' : 'Guardar'}}</button>
+</div>
