@@ -5,6 +5,7 @@ import {MainComponent} from "./main/main.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HobbieComponent} from "./hobbie/hobbie.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {ComplateProfileGuard} from "../../Applications/guards/complate-profile.guard";
 
 const routes: Routes = [
   {
@@ -13,10 +14,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [ComplateProfileGuard],
         component: DashboardComponent
       },
       {
         path: 'hobbie',
+        canActivate: [ComplateProfileGuard],
         component: HobbieComponent
       },
       {

@@ -9,6 +9,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {LoginRequestDto} from "../../Domain/dto/requestDto/login.request.dto";
 import {SignUpRequestDto} from "../../Domain/dto/requestDto/signUp.request.dto";
 import {AuthResponseDto} from "../../Domain/dto/responseDto/AuthResponse.dto";
+import * as moment from 'moment';
 
 export abstract class IAuthService {
   abstract signUp(request: SignUpRequestDto): Observable<any>;
@@ -26,6 +27,7 @@ export abstract class IAuthService {
 export class AuthService implements IAuthService {
 
   private apiUrl = `${environment.API_URL}/api/auth`;
+  private apiUrlUser = `${environment.API_URL}/api/user`;
   private user = new BehaviorSubject<any | null>(null);
   user$ = this.user.asObservable();
 
@@ -47,7 +49,12 @@ export class AuthService implements IAuthService {
       .pipe(
         tap(response => {
           this.tokenService.saveToken(response.token.token);
-          this.tokenService.saveUser(response);
+          const dateExpiration = moment(Date.now());
+          this.tokenService.saveExpiration(dateExpiration.add(response.token.expiresIn / 60,'minutes'))
+          this.http.get<any>(`${this.apiUrlUser}/${response.id}`).subscribe(result => {
+            this.tokenService.saveUser(result.data);
+          })
+
           this.user.next(response)
         }),
       );
@@ -61,8 +68,10 @@ export class AuthService implements IAuthService {
   }
 
   logout() {
-    this.tokenService.removeToken();
-    this.user.next(null);
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe(result => {
+      this.tokenService.removeToken();
+      this.user.next(null);
+    });
   }
 
 }

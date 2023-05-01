@@ -35,7 +35,7 @@ export class SignInComponent {
       this.toast.success({detail:'Usario logeado correctamente'});
       this.router.navigate(['/user']);
     }, error => {
-
+      this.toast.error({detail:'Usuario o contranse no son correctos'});
     })
     //this.router.navigate(['/user/dashboard']);
   }

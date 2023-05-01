@@ -5,6 +5,8 @@ import {ModalConfirmDeleteComponent} from "../../shared/modal-confirm-delete/mod
 import {ModalHobbieComponent} from "../../shared/modal-hobbie/modal-hobbie.component";
 import {TokenService} from "../../../services/token/token.service";
 import {finalize} from "rxjs";
+import {NgToastService} from "ng-angular-popup";
+import {SocketService} from "../../../../helpers/utils/socket.service";
 
 @Component({
   selector: 'app-hobbie',
@@ -17,15 +19,24 @@ export class HobbieComponent implements OnInit {
   userId!: string;
 
   constructor(
+    private socketService: SocketService,
+    private toast: NgToastService,
     public dialog: MatDialog,
     public tokenService: TokenService,
     private hobbieService: IHobbieService) {
+    this.socketService.connect();
   }
 
   ngOnInit(): void {
     const {id} = JSON.parse(this.tokenService.getToken('user')!);
     this.userId = id;
     this.getHobbieUser();
+    this.socketService.on('connect').subscribe(()=>{
+      console.log('Conexión establecida');
+    });
+    this.socketService.on('listHobbie').subscribe((data) => {
+      alert(data)
+    });
   }
 
   getHobbieUser() {
@@ -52,8 +63,8 @@ export class HobbieComponent implements OnInit {
           this.getHobbieUser();
         })
       ).subscribe(response => {
-
-        console.info(response)
+        this.socketService.emit('listHobbie', {data: response});
+        this.toast.success({detail: "Hobbie", summary: "Hobbie agregado correctamente", duration: 5000})
       });
     });
   }
@@ -64,14 +75,15 @@ export class HobbieComponent implements OnInit {
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.info(result)
-      this.hobbieService.updateHobbie(row.id, result).pipe(
-        finalize(() => {
-          this.getHobbieUser();
+      if (result) {
+        this.hobbieService.updateHobbie(row.id, result).pipe(
+          finalize(() => {
+            this.getHobbieUser();
+          })
+        ).subscribe(result => {
+          this.toast.success({detail: "Hobbie", summary: "Hobbie actualizado correctamente", duration: 5000})
         })
-      ).subscribe(result => {
-
-      })
+      }
     })
   }
 
@@ -79,7 +91,13 @@ export class HobbieComponent implements OnInit {
   }
 
   deleteHobbie(row: any) {
-    const dialogRef = this.dialog.open(ModalConfirmDeleteComponent);
+    const dialogRef = this.dialog.open(ModalConfirmDeleteComponent, {
+      width: '400px',
+      data: {
+        title: 'Eliminar',
+        description: 'Desea eliminar el hobbie?'
+      },
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -88,11 +106,14 @@ export class HobbieComponent implements OnInit {
             this.getHobbieUser();
           })
         ).subscribe(result => {
-
+          this.toast.success({detail: "Hobbie", summary: "Hobbie eliminado correctamente", duration: 5000})
         })
         // delete action
       }
     });
   }
 
+  public ngOnDestroy(): void {
+    this.socketService.disconnect();
+  }
 }

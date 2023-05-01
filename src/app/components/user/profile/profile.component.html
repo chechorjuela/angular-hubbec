@@ -88,7 +88,15 @@
         {{fileName || "No file uploaded yet."}}
       </div>
       <div class="progress">
-        <img src="http://localhost:5050/api/filePath/user/644d4b1635d00a6634e871a1/Imagen1.png" />
+        <img *ngIf="userProfile"
+             [src]="urlImage"/>
+      </div>
+    </div>
+    <div>
+      <app-camara (getPicture)="handleImage($event)"></app-camara>
+
+      <div class="webcam-image" *ngIf="webcamImage">
+        <img [src]="webcamImage.imageAsDataUrl" />
       </div>
     </div>
     <div class="grid grid-cols-2 gap-4">

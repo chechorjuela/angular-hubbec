@@ -3,12 +3,13 @@ import {Observable} from "rxjs";
 import {HobbieRequestDto} from "../../Domain/dto/requestDto/hobbie.request.dto";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../helpers/enviroments/enviroment";
+import {checkTime} from "../../Applications/interceptors/valid-timer.interceptor";
 
 export abstract class IUserService {
 
   abstract getUserById(id: string): Observable<any>;
 
-  abstract updateProfile(userRequest: any): Observable<any>;
+  abstract updateProfile(user_id: string, userRequest: any): Observable<any>;
 
   abstract uploadImage(user_id: string, picture: any): Observable<any>;
 
@@ -31,8 +32,8 @@ export class UserService implements IUserService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  updateProfile(userRequest: any): Observable<any> {
-    return this.http.get('');
+  updateProfile(user_id: string,userRequest: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${user_id}`, userRequest);
   }
 
   uploadImage(user_id: string, picture: any): Observable<any> {
@@ -40,6 +41,6 @@ export class UserService implements IUserService {
       user_id,
       picture: [picture]
     }
-    return this.http.post(`${this.apiUrl}/uploadImage`, params);
+    return this.http.post(`${this.apiUrl}/uploadImage`, params ,{context: checkTime()});
   }
 }

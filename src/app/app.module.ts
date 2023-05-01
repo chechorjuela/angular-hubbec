@@ -35,6 +35,10 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ModalHobbieComponent } from './components/shared/modal-hobbie/modal-hobbie.component';
 import {IUserService, UserService} from "./services/user/user.service.service";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {WebcamModule} from "ngx-webcam";
+import { CamaraComponent } from './components/shared/camara/camara.component';
+import {ValidTimerInterceptor} from "./Applications/interceptors/valid-timer.interceptor";
+import {SocketService} from "../helpers/utils/socket.service";
 
 @NgModule({
   declarations: [
@@ -50,6 +54,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     ProfileComponent,
     ModalConfirmDeleteComponent,
     ModalHobbieComponent,
+    CamaraComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -71,10 +76,13 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    WebcamModule
   ],
   providers: [
+    SocketService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ValidTimerInterceptor, multi: true},
     {provide: IAuthService, useClass: AuthService},
     {provide: IHobbieService, useClass: HobbieService},
     {provide: IUserService, useClass: UserService},

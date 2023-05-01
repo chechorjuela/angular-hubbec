@@ -5,6 +5,7 @@ import {ModalConfirmDeleteComponent} from "../modal-confirm-delete/modal-confirm
 import {finalize} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalHobbieComponent} from "../modal-hobbie/modal-hobbie.component";
+import {IAuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent {
   constructor(
     public dialog: MatDialog,
     private tokenService: TokenService,
+    private authService: IAuthService,
     private route: Router
   ) {
   }
@@ -33,9 +35,9 @@ export class NavbarComponent {
       })
     ).subscribe(result => {
       if (result) {
-        this.tokenService.removeToken();
-        this.route.navigate(['/'])
+        //this.authService.logout();
 
+        this.route.navigate(['/'])
       }
     });
   }

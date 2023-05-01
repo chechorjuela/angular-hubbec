@@ -1,15 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TokenService} from "../token/token.service";
-import {switchMap, tap} from 'rxjs/operators';
 import {environment} from "../../../helpers/enviroments/enviroment";
-import {Auth} from "../../Domain/dto/auth";
-import {User} from "../../Domain/dto/user.model";
 import {BehaviorSubject, Observable} from "rxjs";
-import {LoginRequestDto} from "../../Domain/dto/requestDto/login.request.dto";
-import {SignUpRequestDto} from "../../Domain/dto/requestDto/signUp.request.dto";
 import {AuthResponseDto} from "../../Domain/dto/responseDto/AuthResponse.dto";
 import {HobbieRequestDto} from "../../Domain/dto/requestDto/hobbie.request.dto";
+import {checkTime} from "../../Applications/interceptors/valid-timer.interceptor";
 
 export abstract class IHobbieService {
   abstract getAll(): Observable<any>;
@@ -44,10 +40,10 @@ export class HobbieService implements IHobbieService {
   }
 
   getAll(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.apiUrl, {context: checkTime()});
   }
 
-  getHobbieByUser = (userId: string): Observable<any> => this.http.get(`${this.apiUrl}/${userId}`);
+  getHobbieByUser = (userId: string): Observable<any> => this.http.get(`${this.apiUrl}/${userId}`, {context: checkTime()});
 
   updateHobbie(id: string, hobbieRequest: HobbieRequestDto): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, hobbieRequest

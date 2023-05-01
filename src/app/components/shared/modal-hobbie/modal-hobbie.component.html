@@ -2,11 +2,12 @@
 <div mat-dialog-content>
   <form [formGroup]="formHobbie">
     <mat-form-field style="width: 100%">
-      <input matInput placeholder="Nombre Hobbie" formControlName="nameHobbie" />
+      <input matInput placeholder="Nombre Hobbie" formControlName="nameHobbie"/>
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Cancel</button>
-  <button mat-button color="primary" (click)="onSaveClick()">{{true ? 'Actualizar' : 'Guardar'}}</button>
+  <button mat-button (click)="onCancelClick()">Cancelar</button>
+  <button mat-button color="primary"
+          (click)="onSaveClick()">{{this.data.nameHobbie ? 'Actualizar' : 'Guardar'}}</button>
 </div>
