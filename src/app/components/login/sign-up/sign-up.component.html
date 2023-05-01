@@ -43,7 +43,7 @@
       </div>
       <div class="mb-2">
         <mat-form-field style="width: 100%">
-          <input matInput formControlName="expeditionDate" [matDatepicker]="pickerExpedition" placeholder="Fecha de Expedicion">
+          <input matInput formControlName="expeditionDate" [matDatepicker]="pickerExpedition" placeholder="Fecha de Expedición">
           <mat-datepicker-toggle matSuffix [for]="pickerExpedition"></mat-datepicker-toggle>
           <mat-datepicker #pickerExpedition></mat-datepicker>
         </mat-form-field>
@@ -59,7 +59,7 @@
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
         <mat-form-field appearance="fill" style="width: 100%;">
-          <mat-label>Ingresa tu contrasena</mat-label>
+          <mat-label>Ingresa tu contraseña</mat-label>
           <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
           <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                   [attr.aria-pressed]="hide">
@@ -69,7 +69,7 @@
       </div>
       <div>
         <mat-form-field appearance="fill" style="width: 100%;">
-          <mat-label>Repite tu contrasena</mat-label>
+          <mat-label>Repite tu contraseña</mat-label>
           <input matInput formControlName="passwordConfirm" [type]="hideRpt ? 'password' : 'text'">
           <button mat-icon-button matSuffix type="button" (click)="hideRpt = !hideRpt" [attr.aria-label]="'Hide password'"
                   [attr.aria-pressed]="hideRpt">

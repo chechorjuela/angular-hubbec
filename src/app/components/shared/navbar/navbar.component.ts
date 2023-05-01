@@ -17,16 +17,18 @@ export class NavbarComponent {
     public dialog: MatDialog,
     private tokenService: TokenService,
     private authService: IAuthService,
-    private route: Router
+    private router: Router
   ) {
   }
-
+  isActive(route: string): boolean {
+    return this.router.url === route;
+  }
   closeSession(): void {
     const dialogRef = this.dialog.open(ModalConfirmDeleteComponent, {
       width: '400px',
       data: {
-        title: 'Cerrar seccion',
-        description: 'Desea cerrar seccion en esta cuenta?'
+        title: 'Cerrar sesión',
+        description: 'Desea cerrar sesión en esta cuenta?'
       },
     });
 
@@ -37,7 +39,7 @@ export class NavbarComponent {
       if (result) {
         //this.authService.logout();
 
-        this.route.navigate(['/'])
+        this.router.navigate(['/'])
       }
     });
   }

@@ -1,5 +1,5 @@
 <div>
-  <h1>My Hobbie</h1>
+  <h1>Mis Hobbie</h1>
   <div>
     <button mat-fab color="primary" (click)="addModal()" aria-label="Example icon button with a delete icon">
       <mat-icon>add</mat-icon>
@@ -10,7 +10,7 @@
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
       <ng-container matColumnDef="nameHobbie">
-        <th mat-header-cell *matHeaderCellDef>Hobbie</th>
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
         <td mat-cell *matCellDef="let element"> {{element.nameHobbie}} </td>
       </ng-container>
       <ng-container matColumnDef="userId">
@@ -26,7 +26,7 @@
         <td mat-cell *matCellDef="let element"> {{element.update_at}} </td>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions</th>
+        <th mat-header-cell *matHeaderCellDef> Acciones</th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="editRow(row)">
             <mat-icon>edit</mat-icon>

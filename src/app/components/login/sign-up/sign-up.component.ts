@@ -44,7 +44,7 @@ export class SignUpComponent {
         this.toast.success({
           detail: "Usuario Creado",
           duration: 5000,
-          summary: "Usuario creado puedes ingresar con tu correo y contrasena"
+          summary: "Usuario creado puedes ingresar con tu correo y contraseña"
         })
         this.formRegister.reset();
       }

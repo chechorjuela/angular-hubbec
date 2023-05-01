@@ -1,5 +1,5 @@
 <div class="p-8 bg-white shadow-md rounded-lg">
-  <h2 class="text-xl font-semibold mb-4">Inicia Seccion!</h2>
+  <h2 class="text-xl font-semibold mb-4">Inicia sesión!</h2>
   <form [formGroup]="formSign" class="max-w-lg mx-auto mt-4">
     <div class="mb-2">
       <mat-form-field appearance="fill" style="width: 100%;">
@@ -9,7 +9,7 @@
     </div>
     <div class="mb-2">
       <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label>Ingresa tu contrasena</mat-label>
+        <mat-label>Ingresa tu contraseña</mat-label>
         <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">

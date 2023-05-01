@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit {
     const {id} = JSON.parse(this.tokenService.getToken('user')!)
     this.userService.updateProfile(id, this.formProfile.value).subscribe((next) => {
 
-      this.toast.success({detail: "Actualizacion", summary: "Usuario ha sido actualizado", duration: 5000})
+      this.toast.success({detail: "Actualización", summary: "Usuario ha sido actualizado", duration: 5000})
     }, (error) => {
       this.toast.error({detail: "Server", summary: "Ups! hubo un error", duration: 5000})
     })
